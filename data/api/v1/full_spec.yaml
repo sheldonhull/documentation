@@ -4079,8 +4079,8 @@ components:
           description: 'Sample rate to apply to logs going through this exclusion
             filter,
 
-            a value of 1 will exclude all logs matching the query.'
-          example: 1
+            a value of 1.0 excludes all logs matching the query.'
+          example: 1.0
           format: double
           type: number
       required:
@@ -14488,6 +14488,28 @@ components:
       - TIMESERIES
       - TOPLIST
   securitySchemes:
+    AuthZ:
+      description: This API uses OAuth 2 with the implicit grant flow.
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            dashboards_public_share: The ability to share dashboards externally.
+            dashboards_read: The ability to view dashboards.
+            dashboards_write: The ability to create and change dashboards.
+            events_read: The ability to read events data.
+            metrics_read: The ability to view custom metrics.
+            synthetics_global_variable_read: The ability to view, search and use in
+              tests the list of global variables available for Synthetics.
+            synthetics_global_variable_write: The ability to create, edit, and delete
+              global variables for Synthetics.
+            synthetics_private_location_read: The ability to view, search and use
+              in tests the list of private locations available.
+            synthetics_read: The ability to list and view configured Synthetic tests.
+            synthetics_write: The ability to create, edit, and delete Synthetic tests.
+            timeseries_query: The ability to query timeseries data.
+            usage_read: The ability to view your organization's usage and usage attribution.
+      type: oauth2
     apiKeyAuth:
       description: Your Datadog API Key.
       in: header
@@ -15137,6 +15159,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Dashboards Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Delete dashboards
       tags:
       - Dashboards
@@ -15174,6 +15201,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Authentication Error
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_read
       summary: Get all dashboards
       tags:
       - Dashboards
@@ -15220,6 +15252,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Dashboards Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Restore deleted dashboards
       tags:
       - Dashboards
@@ -15261,6 +15298,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Authentication Error
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Create a new dashboard
       tags:
       - Dashboards
@@ -15295,6 +15337,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_read
       summary: Get all dashboard lists
       tags:
       - Dashboard Lists
@@ -15330,6 +15377,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Create a dashboard list
       tags:
       - Dashboard Lists
@@ -15372,6 +15424,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Delete a dashboard list
       tags:
       - Dashboard Lists
@@ -15408,6 +15465,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_read
       summary: Get a dashboard list
       tags:
       - Dashboard Lists
@@ -15457,6 +15519,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Update a dashboard list
       tags:
       - Dashboard Lists
@@ -15507,6 +15574,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Dashboard Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_public_share
       summary: Create a shared dashboard
       tags:
       - Dashboards
@@ -15549,6 +15621,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Shared Dashboard Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_public_share
       summary: Revoke a shared dashboard URL
       tags:
       - Dashboards
@@ -15586,6 +15663,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Shared Dashboard Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_read
       summary: Get a shared dashboard
       tags:
       - Dashboards
@@ -15650,6 +15732,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Item Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_public_share
       summary: Update a shared dashboard
       tags:
       - Dashboards
@@ -15698,6 +15785,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_public_share
       summary: Revoke shared dashboard invitations
       tags:
       - Dashboards
@@ -15749,6 +15841,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_public_share
       summary: Get all invitations for a shared dashboard
       tags:
       - Dashboards
@@ -15806,6 +15903,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_public_share
       summary: Send shared dashboard invitation email
       tags:
       - Dashboards
@@ -15847,6 +15949,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Dashboards Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Delete a dashboard
       tags:
       - Dashboards
@@ -15882,6 +15989,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Item Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_read
       summary: Get a dashboard
       tags:
       - Dashboards
@@ -15930,6 +16042,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Item Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - dashboards_write
       summary: Update a dashboard
       tags:
       - Dashboards
@@ -16273,6 +16390,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Authentication Error
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - events_read
       summary: Query the event stream
       tags:
       - Events
@@ -16346,6 +16468,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Item Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - events_read
       summary: Get an event
       tags:
       - Events
@@ -16369,6 +16496,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Authentication Error
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Get all embeds
       tags:
       - Embeddable Graphs
@@ -16451,6 +16582,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Get specific embed
       tags:
       - Embeddable Graphs
@@ -16607,6 +16742,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Take graph snapshots
       tags:
       - Snapshots
@@ -16778,6 +16917,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Get all hosts for your organization
       tags:
       - Hosts
@@ -17386,6 +17529,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Authentication Error
+      security:
+      - AuthZ: []
       summary: Check that an AWS Lambda Function exists
       tags:
       - AWS Logs Integration
@@ -19254,6 +19399,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - metrics_read
       summary: Get active metrics list
       tags:
       - Metrics
@@ -19290,6 +19440,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - metrics_read
       summary: Get metric metadata
       tags:
       - Metrics
@@ -21050,6 +21205,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - timeseries_query
       summary: Query timeseries points
       tags:
       - Metrics
@@ -21086,6 +21246,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Search metrics
       tags:
       - Metrics
@@ -21380,6 +21544,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Get all SLOs
       tags:
       - Service Level Objectives
@@ -21828,6 +21996,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Get an SLO's details
       tags:
       - Service Level Objectives
@@ -21949,6 +22121,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Get an SLO's history
       tags:
       - Service Level Objectives
@@ -21971,6 +22147,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/SyntheticsLocations'
           description: OK
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_private_location_read
       summary: Get all locations (public and private)
       tags:
       - Synthetics
@@ -22139,6 +22320,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Synthetics is not activated for the user.
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_read
       summary: Get the list of all tests
       tags:
       - Synthetics
@@ -22185,6 +22371,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Create a test
       tags:
       - Synthetics
@@ -22232,6 +22423,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Create an API test
       tags:
       - Synthetics
@@ -22277,6 +22473,11 @@ paths:
           description: '- Synthetic Monitoring is not activated for the user
 
             - Test is not owned by the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_read
       summary: Get an API test
       tags:
       - Synthetics
@@ -22331,6 +22532,11 @@ paths:
             - Test is not owned by the user
 
             - Test can''t be found'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Edit an API test
       tags:
       - Synthetics
@@ -22376,6 +22582,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Create a browser test
       tags:
       - Synthetics
@@ -22419,6 +22630,11 @@ paths:
           description: '- Synthetic is not activated for the user
 
             - Test is not owned by the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_read
       summary: Get a browser test
       tags:
       - Synthetics
@@ -22473,6 +22689,11 @@ paths:
             - Test is not owned by the user
 
             - Test can''t be found'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Edit a browser test
       tags:
       - Synthetics
@@ -22537,6 +22758,11 @@ paths:
           description: '- Synthetic is not activated for the user
 
             - Test is not owned by the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_read
       summary: Get a browser test's latest results summaries
       tags:
       - Synthetics
@@ -22584,6 +22810,11 @@ paths:
           description: '- Synthetic is not activated for the user
 
             - Test or result is not owned by the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_read
       summary: Get a browser test result
       tags:
       - Synthetics
@@ -22633,6 +22864,11 @@ paths:
           description: '- Tests to be deleted can''t be found
 
             - Synthetics is not activated for the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Delete tests
       tags:
       - Synthetics
@@ -22759,6 +22995,11 @@ paths:
             - Test is not owned by the user
 
             - Test can''t be found'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Edit a test
       tags:
       - Synthetics
@@ -22821,6 +23062,11 @@ paths:
           description: '- Synthetic is not activated for the user
 
             - Test is not owned by the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_read
       summary: Get an API test's latest results summaries
       tags:
       - Synthetics
@@ -22866,6 +23112,11 @@ paths:
           description: '- Synthetic is not activated for the user
 
             - Test or result is not owned by the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_read
       summary: Get an API test result
       tags:
       - Synthetics
@@ -22917,6 +23168,11 @@ paths:
           description: '- Synthetic is not activated for the user
 
             - Test is not owned by the user'
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_write
       summary: Pause or start a test
       tags:
       - Synthetics
@@ -22941,6 +23197,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_global_variable_read
       summary: Get all global variables
       tags:
       - Synthetics
@@ -23019,6 +23280,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_global_variable_write
       summary: Delete a global variable
       tags:
       - Synthetics
@@ -23054,6 +23320,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - synthetics_global_variable_read
       summary: Get a global variable
       tags:
       - Synthetics
@@ -23134,6 +23405,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Not Found
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ: []
       summary: Get Tags
       tags:
       - Tags
@@ -23382,6 +23657,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for analyzed logs
       tags:
       - Usage Metering
@@ -23443,6 +23723,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get Usage Attribution
       tags:
       - Usage Metering
@@ -23540,6 +23825,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Lambda
       tags:
       - Usage Metering
@@ -23578,6 +23868,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get billable usage across your account
       tags:
       - Usage Metering
@@ -23674,6 +23969,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Cloud Workload Security
       tags:
       - Usage Metering
@@ -23720,6 +24020,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Fargate
       tags:
       - Usage Metering
@@ -23766,6 +24071,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for hosts and containers
       tags:
       - Usage Metering
@@ -23814,6 +24124,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for incident management
       tags:
       - Usage Metering
@@ -23860,6 +24175,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for indexed spans
       tags:
       - Usage Metering
@@ -23908,6 +24228,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for ingested spans
       tags:
       - Usage Metering
@@ -23956,6 +24281,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for IoT
       tags:
       - Usage Metering
@@ -24002,6 +24332,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Logs
       tags:
       - Usage Metering
@@ -24103,6 +24438,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Logs by Index
       tags:
       - Usage Metering
@@ -24151,6 +24491,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Network Flows
       tags:
       - Usage Metering
@@ -24197,6 +24542,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Network Hosts
       tags:
       - Usage Metering
@@ -24245,6 +24595,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for profiled hosts
       tags:
       - Usage Metering
@@ -24298,6 +24653,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for RUM Sessions
       tags:
       - Usage Metering
@@ -24346,6 +24706,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for SNMP devices
       tags:
       - Usage Metering
@@ -24401,6 +24766,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get usage across your multi-org account
       tags:
       - Usage Metering
@@ -24448,6 +24818,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Synthetics Checks
       tags:
       - Usage Metering
@@ -24494,6 +24869,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Synthetics API Checks
       tags:
       - Usage Metering
@@ -24540,6 +24920,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for Synthetics Browser Checks
       tags:
       - Usage Metering
@@ -24586,6 +24971,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get hourly usage for custom metrics
       tags:
       - Usage Metering
@@ -24661,6 +25051,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
           description: Forbidden - User is not authorized
+      security:
+      - apiKeyAuth: []
+        appKeyAuth: []
+      - AuthZ:
+        - usage_read
       summary: Get all custom metrics by hourly average
       tags:
       - Usage Metering
@@ -24901,6 +25296,7 @@ paths:
           description: Authentication error
       security:
       - apiKeyAuth: []
+      - AuthZ: []
       summary: Validate API key
       tags:
       - Authentication
@@ -25381,6 +25777,12 @@ tags:
     a message
 
     containing more than 500 characters, only the first 500 characters are displayed.
+    Messages
+
+    are limited for checks with a Critical or Warning status, they are dropped for
+    checks with
+
+    an OK status.
 
 
     - [Read more about Service Check monitors.][1]
