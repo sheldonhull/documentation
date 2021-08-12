@@ -57,7 +57,7 @@ For a full list of supported libraries and processor architectures, see [Compati
 
 {{% tab "Windows" %}}
 
-*This is the recommended deployment option for Windows operating systems when you are not redeploying the application. Otherwise, Datadog recommends using the NuGet deployment option.*
+*This is the recommended deployment option for Windows operating systems when you are instrumenting applications in IIS or you are not redeploying the application. Otherwise, Datadog recommends using the NuGet deployment option.*
 
 1. Download the [.NET Tracer MSI installer][1]. Select the MSI installer for the architecture that matches the operating system (x64 or x86).
 
