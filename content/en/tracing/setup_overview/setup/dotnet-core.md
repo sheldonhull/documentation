@@ -55,6 +55,22 @@ For a full list of supported libraries and processor architectures, see [Compati
 
 {{< tabs >}}
 
+{{% tab "NuGet package" %}}
+
+*This is the recommended deployment option when you can update and redeploy the application. Otherwise, Datadog recommends using the Windows or Linux option, corresponding to your operating system.*
+
+1. Add the `Datadog.Instrumentation` [NuGet package][1] to your application.
+
+2. Enable instrumentation in your service by setting the required environment variables. See the section *Instrumenting your service*, below.
+
+3. Create application load.
+
+4. Visit [APM Live Traces][2].
+
+[1]: https://www.nuget.org/packages/Datadog.Instrumentation
+[2]: https://app.datadoghq.com/apm/traces
+{{% /tab %}}
+
 {{% tab "Windows" %}}
 
 *This is the recommended deployment option for Windows operating systems when you are instrumenting applications in IIS or you are not redeploying the application. Otherwise, Datadog recommends using the NuGet deployment option.*
@@ -112,22 +128,6 @@ For a full list of supported libraries and processor architectures, see [Compati
 
 
 [1]: https://en.wikipedia.org/wiki/Musl
-[2]: https://app.datadoghq.com/apm/traces
-{{% /tab %}}
-
-{{% tab "NuGet package" %}}
-
-*This is the recommended deployment option when you are redeploying the application. Otherwise, Datadog recommends using the Windows or Linux option, corresponding to your operating system.*
-
-1. Add the `Datadog.Instrumentation` [NuGet package][1] to your application.
-
-2. Enable instrumentation in your service by setting the required environment variables. See the section *Instrumenting your service*, below.
-
-3. Create application load.
-
-4. Visit [APM Live Traces][2].
-
-[1]: https://www.nuget.org/packages/Datadog.Instrumentation
 [2]: https://app.datadoghq.com/apm/traces
 {{% /tab %}}
 
@@ -327,6 +327,15 @@ Additionally, set the `CORECLR_PROFILER_PATH` environment variable according to 
 
 {{< tabs >}}
 
+{{% tab "NuGet package" %}}
+
+To use custom instrumentation in your .NET application:
+1. In your application code, access the global tracer through the `Datadog.Trace.Tracer.Instance` property to create new spans.
+
+For more details on custom instrumentation and custom tagging, see [.NET Custom Instrumentation documentation][3].
+
+{{% /tab %}}
+
 {{% tab "Windows" %}}
 
 <div class="alert alert-warning">
@@ -350,15 +359,6 @@ For more details on custom instrumentation and custom tagging, see [.NET Custom 
 To use custom instrumentation in your .NET application:
 1. Add the `Datadog.Trace` [NuGet package][2] to your application.
 2. In your application code, access the global tracer through the `Datadog.Trace.Tracer.Instance` property to create new spans.
-
-For more details on custom instrumentation and custom tagging, see [.NET Custom Instrumentation documentation][3].
-
-{{% /tab %}}
-
-{{% tab "NuGet Deployment" %}}
-
-To use custom instrumentation in your .NET application:
-1. In your application code, access the global tracer through the `Datadog.Trace.Tracer.Instance` property to create new spans.
 
 For more details on custom instrumentation and custom tagging, see [.NET Custom Instrumentation documentation][3].
 
