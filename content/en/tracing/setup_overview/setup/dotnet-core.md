@@ -137,6 +137,30 @@ For a full list of supported libraries and processor architectures, see [Compati
 
 {{< tabs >}}
 
+{{% tab "NuGet package" %}}
+
+The following environment variables are required to enable automatic instrumentation:
+
+  Name                       | Value
+  ---------------------------|------
+  `CORECLR_ENABLE_PROFILING` | `1`
+  `CORECLR_PROFILER`         | `{846F5F1C-F9AE-4B07-969E-05C26BC060D8}`
+  `CORECLR_PROFILER_PATH`    | System-dependent, see step below
+  `DD_INTEGRATIONS`          | `<appPath>/datadog/integrations.json`
+  `DD_DOTNET_TRACER_HOME`    | `<appPath>/datadog`
+
+Additionally, set the `CORECLR_PROFILER_PATH` environment variable according to the operating system and processor architecture:
+
+  Operating System and Processor Architecture | Value
+  --------------------------------------------|------
+  Alpine Linux x64                            | `<appPath>/datadog/linux-musl-x64/Datadog.Trace.ClrProfiler.Native.so`
+  Linux x64                                   | `<appPath>/datadog/linux-x64/Datadog.Trace.ClrProfiler.Native.so`
+  Linux ARM64                                 | `<appPath>/datadog/linux-arm64/Datadog.Trace.ClrProfiler.Native.so`
+  Windows x64                                 | `<appPath>/datadog/win-x64/Datadog.Trace.ClrProfiler.Native.dll`
+  Windows x86                                 | `<appPath>/datadog/win-x86/Datadog.Trace.ClrProfiler.Native.dll`
+
+{{% /tab %}}
+
 {{% tab "Windows" %}}
 
 #### Internet Information Services (IIS)
@@ -295,30 +319,6 @@ When using `systemctl` to run .NET applications as a service, you can also set e
 
 
 [1]: https://www.freedesktop.org/software/systemd/man/systemctl.html#set-environment%20VARIABLE=VALUE%E2%80%A6
-{{% /tab %}}
-
-{{% tab "NuGet Deployment" %}}
-
-The following environment variables are required to enable automatic instrumentation:
-
-  Name                       | Value
-  ---------------------------|------
-  `CORECLR_ENABLE_PROFILING` | `1`
-  `CORECLR_PROFILER`         | `{846F5F1C-F9AE-4B07-969E-05C26BC060D8}`
-  `CORECLR_PROFILER_PATH`    | System-dependent, see step below
-  `DD_INTEGRATIONS`          | `<appPath>/datadog/integrations.json`
-  `DD_DOTNET_TRACER_HOME`    | `<appPath>/datadog`
-
-Additionally, set the `CORECLR_PROFILER_PATH` environment variable according to the operating system and processor architecture:
-
-  Operating System and Processor Architecture | Value
-  --------------------------------------------|------
-  Alpine Linux x64                            | `<appPath>/datadog/linux-musl-x64/Datadog.Trace.ClrProfiler.Native.so`
-  Linux x64                                   | `<appPath>/datadog/linux-x64/Datadog.Trace.ClrProfiler.Native.so`
-  Linux ARM64                                 | `<appPath>/datadog/linux-arm64/Datadog.Trace.ClrProfiler.Native.so`
-  Windows x64                                 | `<appPath>/datadog/win-x64/Datadog.Trace.ClrProfiler.Native.dll`
-  Windows x86                                 | `<appPath>/datadog/win-x86/Datadog.Trace.ClrProfiler.Native.dll`
-
 {{% /tab %}}
 
 {{< /tabs >}}
