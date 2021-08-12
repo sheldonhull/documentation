@@ -23931,6 +23931,22 @@
                   },
                   "type": "array"
                 },
+                "type": {
+                  "description": "The rule type.",
+                  "enum": [
+                    "log_detection",
+                    "infrastructure_configuration",
+                    "workload_security",
+                    "cloud_configuration"
+                  ],
+                  "type": "string",
+                  "x-enum-varnames": [
+                    "LOG_DETECTION",
+                    "INFRASTRUCTURE_CONFIGURATION",
+                    "WORKLOAD_SECURITY",
+                    "CLOUD_CONFIGURATION"
+                  ]
+                },
                 "updateAuthorId": {
                   "description": "User ID of the user who updated the rule.",
                   "format": "int64",
@@ -24386,6 +24402,18 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "type": {
+            "description": "The rule type.",
+            "enum": [
+              "log_detection",
+              "workload_security"
+            ],
+            "type": "string",
+            "x-enum-varnames": [
+              "LOG_DETECTION",
+              "WORKLOAD_SECURITY"
+            ]
           }
         },
         "required": [
@@ -25221,6 +25249,22 @@
             },
             "type": "array"
           },
+          "type": {
+            "description": "The rule type.",
+            "enum": [
+              "log_detection",
+              "infrastructure_configuration",
+              "workload_security",
+              "cloud_configuration"
+            ],
+            "type": "string",
+            "x-enum-varnames": [
+              "LOG_DETECTION",
+              "INFRASTRUCTURE_CONFIGURATION",
+              "WORKLOAD_SECURITY",
+              "CLOUD_CONFIGURATION"
+            ]
+          },
           "updateAuthorId": {
             "description": "User ID of the user who updated the rule.",
             "format": "int64",
@@ -25249,6 +25293,34 @@
           "MEDIUM",
           "HIGH",
           "CRITICAL"
+        ]
+      },
+      "SecurityMonitoringRuleTypeCreate": {
+        "description": "The rule type.",
+        "enum": [
+          "log_detection",
+          "workload_security"
+        ],
+        "type": "string",
+        "x-enum-varnames": [
+          "LOG_DETECTION",
+          "WORKLOAD_SECURITY"
+        ]
+      },
+      "SecurityMonitoringRuleTypeRead": {
+        "description": "The rule type.",
+        "enum": [
+          "log_detection",
+          "infrastructure_configuration",
+          "workload_security",
+          "cloud_configuration"
+        ],
+        "type": "string",
+        "x-enum-varnames": [
+          "LOG_DETECTION",
+          "INFRASTRUCTURE_CONFIGURATION",
+          "WORKLOAD_SECURITY",
+          "CLOUD_CONFIGURATION"
         ]
       },
       "SecurityMonitoringRuleUpdatePayload": {
@@ -54031,6 +54103,22 @@
                             },
                             "type": "array"
                           },
+                          "type": {
+                            "description": "The rule type.",
+                            "enum": [
+                              "log_detection",
+                              "infrastructure_configuration",
+                              "workload_security",
+                              "cloud_configuration"
+                            ],
+                            "type": "string",
+                            "x-enum-varnames": [
+                              "LOG_DETECTION",
+                              "INFRASTRUCTURE_CONFIGURATION",
+                              "WORKLOAD_SECURITY",
+                              "CLOUD_CONFIGURATION"
+                            ]
+                          },
                           "updateAuthorId": {
                             "description": "User ID of the user who updated the rule.",
                             "format": "int64",
@@ -54448,6 +54536,18 @@
                       "type": "string"
                     },
                     "type": "array"
+                  },
+                  "type": {
+                    "description": "The rule type.",
+                    "enum": [
+                      "log_detection",
+                      "workload_security"
+                    ],
+                    "type": "string",
+                    "x-enum-varnames": [
+                      "LOG_DETECTION",
+                      "WORKLOAD_SECURITY"
+                    ]
                   }
                 },
                 "required": [
@@ -54807,6 +54907,22 @@
                       },
                       "type": "array"
                     },
+                    "type": {
+                      "description": "The rule type.",
+                      "enum": [
+                        "log_detection",
+                        "infrastructure_configuration",
+                        "workload_security",
+                        "cloud_configuration"
+                      ],
+                      "type": "string",
+                      "x-enum-varnames": [
+                        "LOG_DETECTION",
+                        "INFRASTRUCTURE_CONFIGURATION",
+                        "WORKLOAD_SECURITY",
+                        "CLOUD_CONFIGURATION"
+                      ]
+                    },
                     "updateAuthorId": {
                       "description": "User ID of the user who updated the rule.",
                       "format": "int64",
@@ -54884,7 +55000,7 @@
             "parameters": [
               {
                 "name": "body",
-                "value": "{\n  \"name\": \"{{ unique }}\",\n  \"queries\": [{\n    \"query\": \"@test:true\",\n    \"aggregation\": \"count\",\n    \"groupByFields\": [],\n    \"distinctFields\": [],\n    \"metric\": \"\"\n  }],\n  \"filters\": [],\n  \"cases\": [{\n    \"name\": \"\",\n    \"status\": \"info\",\n    \"condition\": \"a > 0\",\n    \"notifications\": []\n  }],\n  \"options\": {\n    \"evaluationWindow\": 900,\n    \"keepAlive\": 3600,\n    \"maxSignalDuration\": 86400\n  },\n  \"message\": \"Test rule\",\n  \"tags\": [],\n  \"isEnabled\": true\n}"
+                "value": "{\n  \"name\": \"{{ unique }}\",\n  \"queries\": [{\n    \"query\": \"@test:true\",\n    \"aggregation\": \"count\",\n    \"groupByFields\": [],\n    \"distinctFields\": [],\n    \"metric\": \"\"\n  }],\n  \"filters\": [],\n  \"cases\": [{\n    \"name\": \"\",\n    \"status\": \"info\",\n    \"condition\": \"a > 0\",\n    \"notifications\": []\n  }],\n  \"options\": {\n    \"evaluationWindow\": 900,\n    \"keepAlive\": 3600,\n    \"maxSignalDuration\": 86400\n  },\n  \"message\": \"Test rule\",\n  \"tags\": [],\n  \"isEnabled\": true,\n  \"type\": \"log_detection\"\n}"
               }
             ],
             "step": "there is a valid \"security_rule\" in the system"
@@ -55338,6 +55454,22 @@
                         "type": "string"
                       },
                       "type": "array"
+                    },
+                    "type": {
+                      "description": "The rule type.",
+                      "enum": [
+                        "log_detection",
+                        "infrastructure_configuration",
+                        "workload_security",
+                        "cloud_configuration"
+                      ],
+                      "type": "string",
+                      "x-enum-varnames": [
+                        "LOG_DETECTION",
+                        "INFRASTRUCTURE_CONFIGURATION",
+                        "WORKLOAD_SECURITY",
+                        "CLOUD_CONFIGURATION"
+                      ]
                     },
                     "updateAuthorId": {
                       "description": "User ID of the user who updated the rule.",
@@ -56081,6 +56213,22 @@
                         "type": "string"
                       },
                       "type": "array"
+                    },
+                    "type": {
+                      "description": "The rule type.",
+                      "enum": [
+                        "log_detection",
+                        "infrastructure_configuration",
+                        "workload_security",
+                        "cloud_configuration"
+                      ],
+                      "type": "string",
+                      "x-enum-varnames": [
+                        "LOG_DETECTION",
+                        "INFRASTRUCTURE_CONFIGURATION",
+                        "WORKLOAD_SECURITY",
+                        "CLOUD_CONFIGURATION"
+                      ]
                     },
                     "updateAuthorId": {
                       "description": "User ID of the user who updated the rule.",
