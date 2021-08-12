@@ -48,7 +48,7 @@ For a full list of supported libraries and processor architectures, see [Compati
 ### Automatic instrumentation
 
 <div class="alert alert-warning">
-  <strong>Notes:</strong><br><ul><li>Datadog automatic instrumentation relies on the .NET CLR Profiling API. This API allows only one subscriber (for example, APM). To ensure maximum visibility, run only one APM solution in your application environment.</li><li> If you are using both automatic and custom instrumentation, it is important to keep the package versions (for example, MSI and NuGet) in sync.</li></ul>
+  <strong>Note:</strong>Datadog automatic instrumentation relies on the .NET CLR Profiling API. This API allows only one subscriber (for example, APM). To ensure maximum visibility, run only one APM solution in your application environment.
 </div>
 
 #### Installing the tracer
@@ -56,6 +56,8 @@ For a full list of supported libraries and processor architectures, see [Compati
 {{< tabs >}}
 
 {{% tab "Windows" %}}
+
+*This is the recommended deployment option for Windows operating systems when you are not redeploying the application. Otherwise, Datadog recommends using the NuGet deployment option.*
 
 1. Download the [.NET Tracer MSI installer][1]. Select the MSI installer for the architecture that matches the operating system (x64 or x86).
 
@@ -73,6 +75,8 @@ For a full list of supported libraries and processor architectures, see [Compati
 {{% /tab %}}
 
 {{% tab "Linux" %}}
+
+*This is the recommended deployment option for Linux operating systems when you are not redeploying the application. Otherwise, Datadog recommends using the NuGet deployment option.*
 
 1. Download and install the .NET Tracer into the application environment:
     - **Debian or Ubuntu** - Download and install the Debian package:
@@ -108,6 +112,22 @@ For a full list of supported libraries and processor architectures, see [Compati
 
 
 [1]: https://en.wikipedia.org/wiki/Musl
+[2]: https://app.datadoghq.com/apm/traces
+{{% /tab %}}
+
+{{% tab "NuGet package" %}}
+
+*This is the recommended deployment option when you are redeploying the application. Otherwise, Datadog recommends using the Windows or Linux option, corresponding to your operating system.*
+
+1. Add the `Datadog.Instrumentation` [NuGet package][1] to your application.
+
+2. Enable instrumentation in your service by setting the required environment variables. See the section *Instrumenting your service*, below.
+
+3. Create application load.
+
+4. Visit [APM Live Traces][2].
+
+[1]: https://www.nuget.org/packages/Datadog.Instrumentation
 [2]: https://app.datadoghq.com/apm/traces
 {{% /tab %}}
 
@@ -277,9 +297,37 @@ When using `systemctl` to run .NET applications as a service, you can also set e
 [1]: https://www.freedesktop.org/software/systemd/man/systemctl.html#set-environment%20VARIABLE=VALUE%E2%80%A6
 {{% /tab %}}
 
+{{% tab "NuGet Deployment" %}}
+
+The following environment variables are required to enable automatic instrumentation:
+
+  Name                       | Value
+  ---------------------------|------
+  `CORECLR_ENABLE_PROFILING` | `1`
+  `CORECLR_PROFILER`         | `{846F5F1C-F9AE-4B07-969E-05C26BC060D8}`
+  `CORECLR_PROFILER_PATH`    | System-dependent, see step below
+  `DD_INTEGRATIONS`          | `<appPath>/datadog/integrations.json`
+  `DD_DOTNET_TRACER_HOME`    | `<appPath>/datadog`
+
+Additionally, set the `CORECLR_PROFILER_PATH` environment variable according to the operating system and processor architecture:
+
+  Operating System and Processor Architecture | Value
+  --------------------------------------------|------
+  Alpine Linux x64                            | `<appPath>/datadog/linux-musl-x64/Datadog.Trace.ClrProfiler.Native.so`
+  Linux x64                                   | `<appPath>/datadog/linux-x64/Datadog.Trace.ClrProfiler.Native.so`
+  Linux ARM64                                 | `<appPath>/datadog/linux-arm64/Datadog.Trace.ClrProfiler.Native.so`
+  Windows x64                                 | `<appPath>/datadog/win-x64/Datadog.Trace.ClrProfiler.Native.dll`
+  Windows x86                                 | `<appPath>/datadog/win-x86/Datadog.Trace.ClrProfiler.Native.dll`
+
+{{% /tab %}}
+
 {{< /tabs >}}
 
 ## Custom instrumentation
+
+{{< tabs >}}
+
+{{% tab "Windows" %}}
 
 <div class="alert alert-warning">
   <strong>Note:</strong> If you are using both automatic and custom instrumentation, it is important to keep the package versions (for example, MSI and NuGet) in sync.
@@ -290,6 +338,33 @@ To use custom instrumentation in your .NET application:
 2. In your application code, access the global tracer through the `Datadog.Trace.Tracer.Instance` property to create new spans.
 
 For more details on custom instrumentation and custom tagging, see [.NET Custom Instrumentation documentation][3].
+
+{{% /tab %}}
+
+{{% tab "Linux" %}}
+
+<div class="alert alert-warning">
+  <strong>Note:</strong> If you are using both automatic and custom instrumentation, it is important to keep the package versions (for example, MSI and NuGet) in sync.
+</div>
+
+To use custom instrumentation in your .NET application:
+1. Add the `Datadog.Trace` [NuGet package][2] to your application.
+2. In your application code, access the global tracer through the `Datadog.Trace.Tracer.Instance` property to create new spans.
+
+For more details on custom instrumentation and custom tagging, see [.NET Custom Instrumentation documentation][3].
+
+{{% /tab %}}
+
+{{% tab "NuGet Deployment" %}}
+
+To use custom instrumentation in your .NET application:
+1. In your application code, access the global tracer through the `Datadog.Trace.Tracer.Instance` property to create new spans.
+
+For more details on custom instrumentation and custom tagging, see [.NET Custom Instrumentation documentation][3].
+
+{{% /tab %}}
+
+{{< /tabs >}}
 
 ## Install and configure the Agent for APM
 
