@@ -111,6 +111,14 @@ For a full list of supported libraries and processor architectures, see [Compati
 [2]: https://app.datadoghq.com/apm/traces
 {{% /tab %}}
 
+{{% tab "Azure App Service" %}}
+
+To set up Datadog APM in Azure App Service, see the [Tracing Azure App Services Extension][1] documentation.
+
+
+[1]: /serverless/azure_app_services/
+{{% /tab %}}
+
 {{< /tabs >}}
 
 ### Instrumenting your service
@@ -275,6 +283,14 @@ When using `systemctl` to run .NET applications as a service, you can also set e
 
 
 [1]: https://www.freedesktop.org/software/systemd/man/systemctl.html#set-environment%20VARIABLE=VALUE%E2%80%A6
+{{% /tab %}}
+
+{{% tab "Azure App Service" %}}
+
+To set up Datadog APM in Azure App Service, see the [Tracing Azure App Services Extension][1] documentation.
+
+
+[1]: /serverless/azure_app_services/
 {{% /tab %}}
 
 {{< /tabs >}}
