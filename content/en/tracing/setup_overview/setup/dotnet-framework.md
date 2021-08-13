@@ -56,6 +56,10 @@ For a full list of supported libraries and processor architectures, see [Compati
 
 ### Automatic instrumentation
 
+{{< tabs >}}
+
+{{% tab "Windows" %}}
+
 <div class="alert alert-warning"> 
   <strong>Notes:</strong><br><ul><li>Datadog automatic instrumentation relies on the .NET CLR Profiling API. This API allows only one subscriber (for example, APM). To ensure maximum visibility, run only one APM solution in your application environment.</li><li> If you are using both automatic and custom instrumentation, it is important to keep the package versions (for example, MSI and NuGet) in sync.</li></ul>
 </div>
@@ -130,7 +134,23 @@ SET COR_PROFILER={846F5F1C-F9AE-4B07-969E-05C26BC060D8}
 rem Start application
 example.exe
 ```
+{{% /tab %}}
+
+{{% tab "Azure App Service" %}}
+
+To set up Datadog APM in Azure App Service, see the [Tracing Azure App Services Extension][1] documentation.
+
+
+[1]: /serverless/azure_app_services/
+{{% /tab %}}
+
+{{< /tabs >}}
+
 ### Configure the Datadog Agent for APM
+
+{{< tabs >}}
+
+{{% tab "Windows" %}}
 
 Install and configure the Datadog Agent to receive traces from your instrumented application. By default the Datadog Agent is enabled in your `datadog.yaml` file under `apm_config` with `enabled: true` and listens for trace traffic at `localhost:8126`. For containerized environments, follow the in-app [Quickstart instructions][2] to enable trace collection within the Datadog Agent.
 {{< site-region region="us3,eu,gov" >}}
@@ -138,6 +158,19 @@ Install and configure the Datadog Agent to receive traces from your instrumented
 Ensure you set `DD_SITE` in the Datadog Agent to {{< region-param key="dd_site" code="true" >}} so that the Agent sends data to the right Datadog location.
 
 {{< /site-region >}}
+
+[2]: https://docs.datadoghq.com/agent/basic_agent_usage/windows/?tab=gui
+{{% /tab %}}
+
+{{% tab "Azure App Service" %}}
+
+To set up Datadog APM in Azure App Service, see the [Tracing Azure App Services Extension][1] documentation.
+
+
+[1]: /serverless/azure_app_services/
+{{% /tab %}}
+
+{{< /tabs >}}
 
 ## Custom instrumentation
 
